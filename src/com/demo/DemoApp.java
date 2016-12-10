@@ -3,15 +3,19 @@ package com.demo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import com.AppUtils.gui.ApplicationScreen;
+import com.messages.Message;
 
 public class DemoApp extends ApplicationScreen {
 
 
 	String[] actionsArray = new String[]{"Show an info message"};
 	private DefaultComboBoxModel<String> actions = new DefaultComboBoxModel<>(actionsArray);
+	private JPanel panel = new JPanel();
+	private JButton execBtn = new JButton("Execute");
 	public DemoApp(String title, int width, int height, boolean resizable) {
 		super(title, width, height, resizable);
 		initUIElements();
@@ -39,6 +43,12 @@ public class DemoApp extends ApplicationScreen {
 	protected void initUIElements() {
 		// TODO Auto-generated method stub
 		setLocationRelativeTo(null);
+		panel.add(execBtn);
+		setContentPane(panel);
+		execBtn.addActionListener(e->{
+			Message.info("This is a simple info dialog with no custom title");
+		});
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	@Override
