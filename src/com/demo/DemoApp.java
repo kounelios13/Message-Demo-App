@@ -2,6 +2,7 @@ package com.demo;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -12,8 +13,9 @@ import com.messages.Message;
 public class DemoApp extends ApplicationScreen {
 
 
-	String[] actionsArray = new String[]{"Show an info message"};
+	String[] actionsArray = new String[]{"Show an info message","Show an info message with custom title"};
 	private DefaultComboBoxModel<String> actions = new DefaultComboBoxModel<>(actionsArray);
+	private JComboBox<String> actionCombo = new JComboBox<>(actions);
 	private JPanel panel = new JPanel();
 	private JButton execBtn = new JButton("Execute");
 	public DemoApp(String title, int width, int height, boolean resizable) {
@@ -43,10 +45,14 @@ public class DemoApp extends ApplicationScreen {
 	protected void initUIElements() {
 		// TODO Auto-generated method stub
 		setLocationRelativeTo(null);
+		panel.add(actionCombo);
 		panel.add(execBtn);
 		setContentPane(panel);
 		execBtn.addActionListener(e->{
-			Message.info("This is a simple info dialog with no custom title");
+			if(actionCombo.getSelectedIndex()==0)
+				Message.info("This is a simple info dialog with no custom title");
+			else
+				Message.info("Message with custom title", "Custom title");
 		});
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
