@@ -16,7 +16,8 @@ public class DemoApp extends ApplicationScreen {
 
 
 	private XString codeToParse = new XString();
-	private String[] actionsArray = new String[]{"Show an info message","Show an info message with custom title"};
+	private String[] actionsArray = new String[]{"Show an info message in the current content pane",
+			"Show an info message","Show an info message with custom title"};
 	private DefaultComboBoxModel<String> actions = new DefaultComboBoxModel<>(actionsArray);
 	private JComboBox<String> actionCombo = new JComboBox<>(actions);
 	private JTextArea producedCode = new JTextArea(30,30);
@@ -57,9 +58,11 @@ public class DemoApp extends ApplicationScreen {
 			int index = actionCombo.getSelectedIndex();
 			switch(index){
 				case 0:
+					codeToParse.setText("Message.info(getContentPane(),\"This message sticks to the current window\"");
+				case 1:
 					codeToParse.setText("Message.info(\"This is a simple info dialog with no custom title\");");	
 				break;	
-				case 1:
+				case 2:
 					codeToParse.setText("Message.info(\"Message with custom title\",\"Custom title\");");
 				break;
 			}
@@ -69,12 +72,19 @@ public class DemoApp extends ApplicationScreen {
 			int index  = actionCombo.getSelectedIndex();
 			switch(index){
 				case 0:
+					Message.info(getContentPane(),"This message sticks to the current window");
+					break;
+				case 1:
+					Message.info("Message with default title");
+				break;
+				case 2:
+					Message.info("Message with custom title", "Custom title");
+				break;
+				case 3:
+					Message.info(getContentPane(), "This is a message that sticks to your window", "Custom title here");
+					
 					
 			}
-			if(actionCombo.getSelectedIndex()==0)
-				Message.info("This is a simple info dialog with no custom title");
-			else
-				Message.info("Message with custom title", "Custom title");
 		});
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
